@@ -13,8 +13,8 @@ RUN chmod +x gradlew
 # Build the project using Gradle
 RUN ./gradlew build
 
-# Use a smaller image for the runtime environment (optional but recommended)
-FROM eclipse-temurin:21-jdk-slim
+# Use Amazon Corretto 21 JDK
+FROM amazoncorretto:21
 
 # Set the working directory for runtime container
 WORKDIR /app
