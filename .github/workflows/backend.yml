@@ -28,6 +28,9 @@ jobs:
           echo "SECURITY_DEFAULT_PASS=${{ secrets.SECURITY_DEFAULT_PASS }}" >> $GITHUB_ENV
           echo "JWT_ISSUER=${{ secrets.JWT_ISSUER }}" >> $GITHUB_ENV
           echo "JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}" >> $GITHUB_ENV
+          echo "ALLOWED_ORIGINS=${{ secrets.ALLOWED_ORIGINS }}" >> $GITHUB_ENV
+          echo "ALLOWED_METHODS=${{ secrets.ALLOWED_METHODS }}" >> $GITHUB_ENV
+          echo "ALLOW_CREDENTIALS=${{ secrets.ALLOW_CREDENTIALS }}" >> $GITHUB_ENV
 
       - name: Grant execute permission for Gradle
         run: chmod +x gradlew
