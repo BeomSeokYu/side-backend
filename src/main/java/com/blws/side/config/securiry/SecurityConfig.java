@@ -49,7 +49,7 @@ public class SecurityConfig {
                 // cors 설정
                 .cors(corsCustomizer -> corsCustomizer.configurationSource(request -> {
                     CorsConfiguration config = new CorsConfiguration();
-                    config.setAllowedOrigins(List.of("http://localhost:8000", "http://localhost:8001"));
+                    config.setAllowedOrigins(List.of("http://localhost:8090", "http://localhost:8091", "http://ro1864.iptime.org:8090", "http://ro1864.iptime.org:8091", "http://www.hihat.store:8090", "http://www.hihat.store:8091"));
                     config.setAllowedMethods(Collections.singletonList("*"));
                     config.setAllowCredentials(true);
                     config.setAllowedHeaders(Collections.singletonList("*"));
