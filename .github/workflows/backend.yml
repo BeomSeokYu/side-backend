@@ -22,25 +22,15 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
-#      - name: Set environment variables
-#        run: |
-#          echo "SECURITY_DEFAULT_USER=${{ secrets.SECURITY_DEFAULT_USER }}" >> $GITHUB_ENV
-#          echo "SECURITY_DEFAULT_PASS=${{ secrets.SECURITY_DEFAULT_PASS }}" >> $GITHUB_ENV
-#          echo "JWT_ISSUER=${{ secrets.JWT_ISSUER }}" >> $GITHUB_ENV
-#          echo "JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}" >> $GITHUB_ENV
-#          echo "ALLOWED_ORIGINS=${{ secrets.ALLOWED_ORIGINS }}" >> $GITHUB_ENV
-#          echo "ALLOWED_METHODS=${{ secrets.ALLOWED_METHODS }}" >> $GITHUB_ENV
-#          echo "ALLOW_CREDENTIALS=${{ secrets.ALLOW_CREDENTIALS }}" >> $GITHUB_ENV
-
-      - name: Create .env.prod file from GitHub Secrets
+      - name: Set environment variables
         run: |
-          echo "${{ secrets.PROD_ENV }}" > .env.prod
-
-      - name: Set environment variables from .env.prod
-        run: |
-          while IFS='=' read -r key value; do
-            echo "$key=$value" >> $GITHUB_ENV
-          done < .env.prod
+          echo "SECURITY_DEFAULT_USER=${{ secrets.SECURITY_DEFAULT_USER }}" >> $GITHUB_ENV
+          echo "SECURITY_DEFAULT_PASS=${{ secrets.SECURITY_DEFAULT_PASS }}" >> $GITHUB_ENV
+          echo "JWT_ISSUER=${{ secrets.JWT_ISSUER }}" >> $GITHUB_ENV
+          echo "JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}" >> $GITHUB_ENV
+          echo "ALLOWED_ORIGINS=${{ secrets.ALLOWED_ORIGINS }}" >> $GITHUB_ENV
+          echo "ALLOWED_METHODS=${{ secrets.ALLOWED_METHODS }}" >> $GITHUB_ENV
+          echo "ALLOW_CREDENTIALS=${{ secrets.ALLOW_CREDENTIALS }}" >> $GITHUB_ENV
 
       - name: Grant execute permission for Gradle
         run: chmod +x gradlew
