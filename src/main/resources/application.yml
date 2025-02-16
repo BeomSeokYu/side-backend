@@ -41,7 +41,7 @@ mybatis:
     map-underscore-to-camel-case: true  # Map underscore to camelCase in MyBatis
 
 server:
-  port: 8001                # Server port
+  port: 8091                # Server port
 
 logging:
   level:
