@@ -1,5 +1,6 @@
 package com.blws.side.config.securiry;
 
+import com.blws.side.config.cors.CorsProperties;
 import com.blws.side.user.service.UserDetailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -27,6 +28,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfig {
 
     private final UserDetailService userDetailService;
+    private final CorsProperties corsProperties;
 
     @Bean
     public WebSecurityCustomizer configure() {
@@ -49,7 +51,7 @@ public class SecurityConfig {
                 // cors 설정
                 .cors(corsCustomizer -> corsCustomizer.configurationSource(request -> {
                     CorsConfiguration config = new CorsConfiguration();
-                    config.setAllowedOrigins(List.of("http://localhost:8090", "http://localhost:8091", "http://ro1864.iptime.org:8090", "http://ro1864.iptime.org:8091", "http://www.hihat.store:8090", "http://www.hihat.store:8091"));
+                    config.setAllowedOrigins(List.of(corsProperties.getAllowedOrigins().split(",")));
                     config.setAllowedMethods(Collections.singletonList("*"));
                     config.setAllowCredentials(true);
                     config.setAllowedHeaders(Collections.singletonList("*"));

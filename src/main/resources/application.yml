@@ -15,8 +15,8 @@ spring:
 
   security:
     user:
-      name: test          # Default username
-      password: 1234      # Default password
+      name: ${SECURITY_DEFAULT_USER}          # Default username
+      password: ${SECURITY_DEFAULT_PASS}      # Default password
 
   cache:
     type: caffeine                                  # Cache type (using Caffeine)
@@ -58,7 +58,7 @@ management:
       show-details: always  # Always show detailed health endpoint information
 
 jwt:
-  issuer: ${JWT_ISSUER:abc@gmail.com}
-  secret_key: ${JWT_SECRET_KEY:test-springboot-template-secret-key}
+  issuer: ${JWT_ISSUER}
+  secret_key: ${JWT_SECRET_KEY}
   access_expiration_time: 30  # Minutes
   refresh_expiration_time: 14 # Days
