@@ -2,7 +2,7 @@ spring:
   application:
     name: side-backend    # Application name
   profiles:
-    active: local  # Default active profile
+    active: prod  # Default active profile
 
   jpa:
     hibernate:
