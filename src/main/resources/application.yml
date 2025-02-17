@@ -15,8 +15,8 @@ spring:
 
   security:
     user:
-      name: ${SECURITY_DEFAULT_USER}          # Default username
-      password: ${SECURITY_DEFAULT_PASS}      # Default password
+      name: ${SECURITY_DEFAULT_USER:user}          # Default username
+      password: ${SECURITY_DEFAULT_PASS:1234}      # Default password
 
   cache:
     type: caffeine                                  # Cache type (using Caffeine)
