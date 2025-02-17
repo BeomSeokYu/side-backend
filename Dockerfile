@@ -11,7 +11,7 @@ COPY . /app/
 RUN chmod +x gradlew
 
 # Build the project using Gradle
-RUN ./gradlew assemble
+RUN ./gradlew build
 
 # Use Amazon Corretto 21 JDK
 FROM amazoncorretto:21
