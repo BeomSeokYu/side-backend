@@ -38,12 +38,12 @@ jobs:
       - name: Run Tests
         run: ./gradlew test
 
-  trigger-jenkins:
-    needs: test  # 🔹 테스트가 성공해야만 실행됨
-    runs-on: ubuntu-latest
-    steps:
-      - name: Trigger Jenkins Build
-        env:
-          JENKINS_WEBHOOK: ${{ secrets.JENKINS_WEBHOOK_URL }}
-        run: |
-          curl -X POST "$JENKINS_WEBHOOK"
+#  trigger-jenkins:
+#    needs: test  # 🔹 테스트가 성공해야만 실행됨
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Trigger Jenkins Build
+#        env:
+#          JENKINS_WEBHOOK: ${{ secrets.JENKINS_WEBHOOK_URL }}
+#        run: |
+#          curl -X POST "$JENKINS_WEBHOOK"
