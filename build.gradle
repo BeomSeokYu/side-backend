@@ -1,0 +1,72 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.4.2'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.blws'
+version = '0.0.1'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	// Spring Boot Starters
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'       // 데이터베이스 연동 및 ORM
+	implementation 'org.springframework.boot:spring-boot-starter-security'       // 인증 및 인가
+	implementation 'org.springframework.boot:spring-boot-starter-web'            // 웹 애플리케이션 개발 (Spring MVC)
+	implementation 'org.springframework.boot:spring-boot-starter-validation'     // 데이터 검증
+//	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'      // 서버 사이드 템플릿 엔진
+	implementation 'org.springframework.boot:spring-boot-starter-mail'           // 메일 전송 기능
+	implementation 'org.springframework.boot:spring-boot-starter-cache'          // 캐시 기능
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'       // 애플리케이션 모니터링 및 관리
+
+	// JWT
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'							 // JJWT API 모듈
+	implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'							 // JJWT 구현 모듈
+	implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'						 // Jackson을 사용한 JSON 처리 모듈
+
+	// JAXB (java 11 ~ )
+	implementation 'javax.xml.bind:jaxb-api:2.3.1'								 // XML - JAVA Object 간 매핑 자동화
+
+	// Database
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'   // MyBatis SQL Mapper
+	implementation 'org.mariadb.jdbc:mariadb-java-client'					 // MariaDB JDBC Driver
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'		 // PostgreSQL JDBC Driver
+	implementation 'org.postgresql:postgresql'
+	runtimeOnly 'com.h2database:h2'												 // In-memory database for development/testing
+
+	// Swagger for API documentation
+	implementation 'io.springfox:springfox-boot-starter:3.0.0'                   // API 문서화
+
+	// Lombok
+	compileOnly 'org.projectlombok:lombok'                                       // 보일러플레이트 코드 감소
+	annotationProcessor 'org.projectlombok:lombok'                               // Lombok 어노테이션 프로세서
+
+	// Development tools
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'              // 개발 시 편리한 기능 제공 	// 인메모리 데이터베이스
+
+	// Testing dependencies
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'       // Spring Boot 테스트 지원
+	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3' // MyBatis 연동 테스트
+	testImplementation 'org.springframework.security:spring-security-test'       // Spring Security 테스트 지원
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'                 // JUnit 테스트 실행기
+	testCompileOnly 'org.projectlombok:lombok'                                   // TEST 보일러플레이트 코드 감소
+	testAnnotationProcessor 'org.projectlombok:lombok'                           // TEST Lombok 어노테이션 프로세서
+}
+
+test {
+	useJUnitPlatform()
+	jvmArgs '-Dnet.bytebuddy.agent.enabled=false' // byte-buddy-agent disabled
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

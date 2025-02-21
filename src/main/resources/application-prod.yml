@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:${DB_TYPE:postgresql}://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:SIDE}  # database URL
+    driverClassName: ${DB_DRIVER_CLASS_NAME:org.postgresql.Driver}                          # PostgreSQL JDBC driver class
+    username: ${DB_USER}                                                                    # Database username
+    password: ${DB_PASS}                                                                    # Database password
+    hikari:
+      maximum-pool-size: 30
+      minimum-idle: 10
+
+  cors:
+    allowed-origins: ${ALLOWED_ORIGINS:localhost:8090}
+    allowed-methods: ${ALLOWED_METHODS:GET,POST,PUT,DELETE}
+    allow-credentials: ${ALLOW_CREDENTIALS:true}

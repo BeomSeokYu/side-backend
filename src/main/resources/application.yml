@@ -1,0 +1,64 @@
+spring:
+  application:
+    name: side-backend    # Application name
+  profiles:
+    active: local  # Default active profile
+
+  jpa:
+    hibernate:
+      ddl-auto: update  # Hibernate DDL auto strategy (update to reflect only changes)
+    show-sql: true      # Enable SQL logging
+
+#  sql:
+#    init:
+#      mode: always      # init database (data.sql/schema.sql) [embedded : like H2 (in memory)]
+
+  security:
+    user:
+      name: ${SECURITY_DEFAULT_USER}          # Default username
+      password: ${SECURITY_DEFAULT_PASS}      # Default password
+
+  cache:
+    type: caffeine                                  # Cache type (using Caffeine)
+    caffeine:
+      spec: maximumSize=500,expireAfterAccess=600s  # Caffeine cache specifications
+
+#  mail:
+#    host: smtp.example.com            # SMTP host address
+#    port: 587                         # SMTP port
+#    username: your-email@example.com  # Email account username
+#    password: your-email-password     # Email account password
+#    properties:
+#      mail:
+#        smtp:
+#          auth: true      # Enable SMTP authentication
+#          starttls:
+#            enable: true  # Enable STARTTLS
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml  # MyBatis mapper file locations
+  configuration:
+    map-underscore-to-camel-case: true  # Map underscore to camelCase in MyBatis
+
+server:
+  port: 8091                # Server port
+
+logging:
+  level:
+    root: INFO                      # Root logger level (INFO for informative logging)
+    org.springframework.web: DEBUG  # Debug level for Spring web module
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"        # Expose all management endpoints
+  endpoint:
+    health:
+      show-details: always  # Always show detailed health endpoint information
+
+jwt:
+  issuer: ${JWT_ISSUER}
+  secret_key: ${JWT_SECRET_KEY}
+  access_expiration_time: 30  # Minutes
+  refresh_expiration_time: 14 # Days

@@ -1,0 +1,123 @@
+HELP.md
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+# Java 관련
+*.class
+*.jar
+*.war
+*.ear
+
+# 컴파일된 파일들
+/build/
+/out/
+
+# IDEA
+/.idea
+.idea/
+.idea_modules/
+.settings/
+
+# Eclipse
+/.project
+/.classpath
+/.settings/
+/.target/
+
+# Maven
+/log/
+/target/
+/pom.xml.tag
+/pom.xml.releaseBackup
+/pom.xml.versionsBackup
+/pom.xml.next
+/release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+
+# Gradle
+.gradle/
+**/build/
+**/out/
+
+# Node.js 관련
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# 운영체제별
+.DS_Store
+Thumbs.db
+
+# 로그 파일
+*.log
+/logs/
+/*.log
+*.log.*
+
+# 환경설정 파일
+*.env
+
+# IDE 설정 파일
+*.swp
+
+# Spring Boot 관련
+/spring-boot-app/
+!/spring-boot-app/src/main/resources/
+
+# H2 Database
+*.h2.db
+
+# Lombok
+*.lombok.config
+
+# Vue.js 관련
+dist/
+*.local
+
+# 환경설정 파일
+.env.local
+.env.*.local
+.env.test.local
+.env.production.local
+
+# 빌드 결과물
+/public/
+
+# 테스트 결과물
+/coverage/

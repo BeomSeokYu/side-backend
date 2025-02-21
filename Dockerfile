@@ -1,0 +1,44 @@
+# 1. 빌드 단계
+# Use Amazon Corretto 21 JDK
+FROM amazoncorretto:21 AS build
+
+# 빌드 아규먼트를 정의
+ARG DB_HOST
+ARG DB_USER
+ARG DB_PASS
+ARG ALLOWED_ORIGINS
+ARG ALLOWED_METHODS
+ARG ALLOW_CREDENTIALS
+ARG SECURITY_DEFAULT_USER
+ARG SECURITY_DEFAULT_PASS
+ARG JWT_ISSUER
+ARG JWT_SECRET_KEY
+
+# 환경 변수로 설정 (선택사항)
+#ENV DB_HOST=$DB_HOST
+#ENV DB_USER=$DB_USER
+#ENV DB_PASS=$DB_PASS
+#ENV ALLOWED_ORIGINS=$ALLOWED_ORIGINS
+#ENV ALLOWED_METHODS=$ALLOWED_METHODS
+#ENV ALLOW_CREDENTIALS=$ALLOW_CREDENTIALS
+#ENV SECURITY_DEFAULT_USER=$SECURITY_DEFAULT_USER
+#ENV SECURITY_DEFAULT_PASS=$SECURITY_DEFAULT_PASS
+#ENV JWT_ISSUER=$JWT_ISSUER
+#ENV JWT_SECRET_KEY=$JWT_SECRET_KEY
+
+WORKDIR /app
+
+# 프로젝트 파일 복사 및 빌드
+COPY . /app/
+RUN chmod +x ./gradlew
+RUN ./gradlew clean build -x test
+
+# 2. 실행 단계
+FROM amazoncorretto:21
+WORKDIR /app
+
+# build 스테이지에서 생성된 JAR 파일을 복사
+COPY --from=build /app/build/libs/side-backend-0.0.1.jar /app/side-backend.jar
+
+# 실행 명령어
+ENTRYPOINT ["java", "-jar", "side-backend.jar"]
