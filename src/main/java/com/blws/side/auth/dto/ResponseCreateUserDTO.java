@@ -11,8 +11,8 @@ public class ResponseCreateUserDTO {
 
     public static ResponseCreateUserDTO of(User user) {
         return builder()
-                .id(user.getId())
-                .username(user.getUsername())
+                .id(user.getUserId())
+                .username(user.getEmail())
                 .build();
     }
 }

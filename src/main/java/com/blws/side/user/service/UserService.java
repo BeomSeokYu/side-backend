@@ -1,5 +1,7 @@
 package com.blws.side.user.service;
 
+import com.blws.side.auth.entity.RefreshToken;
+import com.blws.side.auth.repository.RefreshTokenRepository;
 import com.blws.side.common.exception.CustomException;
 import com.blws.side.user.entity.User;
 import com.blws.side.user.repository.UserRepository;
@@ -14,12 +16,13 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final RefreshTokenRepository refreshTokenRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Transactional
     public User createUser(User userInfo) {
         User user = User.builder()
-                .username(userInfo.getUsername())
+                .email(userInfo.getEmail())
                 .password(bCryptPasswordEncoder.encode(userInfo.getPassword()))
                 .email(userInfo.getEmail())
                 .build();
@@ -32,13 +35,18 @@ public class UserService {
     }
 
     public User getUserByUsername(String username) {
-        return userRepository.findByUsername(username)
+        return userRepository.findByEmail(username)
                 .orElseThrow(() -> new CustomException("User not found", HttpStatus.BAD_REQUEST));
     }
 
     public User getUserByRefreshToken(String refreshToken) {
-        return userRepository.findByRefreshToken(refreshToken)
-                .orElseThrow(() -> new CustomException("User not found", HttpStatus.BAD_REQUEST));
+        RefreshToken token = refreshTokenRepository.findByToken(refreshToken).orElse(null);
+        if (token != null) {
+            return userRepository.findByUserId(token.getId())
+                    .orElseThrow(() -> new CustomException("User not found", HttpStatus.BAD_REQUEST));
+        }
+
+        return null;
     }
 
     @Transactional

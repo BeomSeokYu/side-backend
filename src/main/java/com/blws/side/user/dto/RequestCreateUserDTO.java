@@ -16,7 +16,7 @@ public class RequestCreateUserDTO {
 
     public User toEntity() {
         return User.builder()
-                .username(this.username)
+                .email(this.username)
                 .password(this.password)
                 .build();
     }

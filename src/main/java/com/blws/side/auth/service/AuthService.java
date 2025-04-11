@@ -1,5 +1,7 @@
 package com.blws.side.auth.service;
 
+import com.blws.side.auth.entity.RefreshToken;
+import com.blws.side.auth.repository.RefreshTokenRepository;
 import com.blws.side.common.exception.CustomException;
 import com.blws.side.config.jwt.TokenProvider;
 import com.blws.side.config.jwt.TokenType;
@@ -25,6 +27,7 @@ public class AuthService {
     private final TokenProvider tokenProvider;
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
+    private final RefreshTokenRepository refreshTokenRepository;
 
     public String createNewAccessToken(String refreshToken) {
         if (!tokenProvider.validateToken(refreshToken)) {
@@ -32,7 +35,7 @@ public class AuthService {
         }
 
         User user = userService.getUserByRefreshToken(refreshToken);
-        if (!((UserDetails) SecurityContextHolder.getContext()).getUsername().equals(user.getUsername())) {
+        if (!((UserDetails) SecurityContextHolder.getContext()).getUsername().equals(user.getEmail())) {
             throw new CustomException("Access Denied", HttpStatus.BAD_REQUEST);
         }
 
@@ -48,7 +51,18 @@ public class AuthService {
             String refreshToken = tokenProvider.generateToken(authUser, TokenType.REFRESH);
             String accessToken = tokenProvider.generateToken(authUser, TokenType.ACCESS);
 
-            userService.updateUser(authUser.getId(), authUser.updateRefreshToken(refreshToken));
+            RefreshToken RefreshTokenEntity = refreshTokenRepository.findById(authUser.getUserId()).orElse(
+                    RefreshToken.builder()
+                            .id(authUser.getUserId())
+                            .token(refreshToken)
+                            .expiryDate(tokenProvider.getExpiryDate(refreshToken))
+                            .build()
+            );
+            if (refreshTokenRepository.existsById(authUser.getUserId())) {
+                RefreshTokenEntity.updateRefreshToken(refreshToken);
+            } else {
+                refreshTokenRepository.save(RefreshTokenEntity);
+            }
 
             return new HashMap<>() {
                 {

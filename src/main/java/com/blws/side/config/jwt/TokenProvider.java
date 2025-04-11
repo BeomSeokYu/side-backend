@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Set;
@@ -42,8 +45,8 @@ public class TokenProvider {
                 .setIssuer(jwtProperties.getIssuer())           // issuer
                 .setIssuedAt(now)                               // 내용 iat: 현재 시간
                 .setExpiration(expiry)                          // 내용 exp: expiry 멤버 변숫값
-                .setSubject(user.getUsername())                 // 내용 sub: 유저 username
-                .claim("id", user.getId())                   // 클래임 id: 유저 ID
+                .setSubject(user.getEmail())                 // 내용 sub: 유저 username
+                .claim("id", user.getUserId())                   // 클래임 id: 유저 ID
                 .signWith(getSigningKey())
                 .compact();
     }
@@ -91,6 +94,16 @@ public class TokenProvider {
     public Long getUserId(String token) {
         Claims claims = getClaims(token);
         return claims.get("id", Long.class);
+    }
+
+    /**
+     * 토큰 기반으로 토큰의 만료시간을 가져오는 메서드
+     * @param token jwt
+     * @return      Expiration
+     */
+    public LocalDateTime getExpiryDate(String token) {
+        Claims claims = getClaims(token);
+        return LocalDateTime.ofInstant(claims.getExpiration().toInstant(), ZoneId.systemDefault());
     }
 
     private Claims getClaims(String token) {

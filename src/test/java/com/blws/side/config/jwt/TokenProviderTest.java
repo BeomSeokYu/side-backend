@@ -29,8 +29,8 @@ class TokenProviderTest {
         // given
         User testUser = userRepository.save(User.builder()
                 .email("user@email.com")
-                .username("user")
                 .password("test")
+                .nickname("tester")
                 .build());
         // when
         String token = tokenProvider.generateToken(testUser, TokenType.ACCESS);
@@ -42,7 +42,7 @@ class TokenProviderTest {
                 .getBody()
                 .get("id", Long.class);
 
-        assertThat(userId).isEqualTo(testUser.getId());
+        assertThat(userId).isEqualTo(testUser.getUserId());
     }
 
     @Test

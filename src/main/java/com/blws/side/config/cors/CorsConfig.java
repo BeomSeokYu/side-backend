@@ -19,5 +19,18 @@ public class CorsConfig implements WebMvcConfigurer {
                 .allowedOrigins(corsProperties.getAllowedOrigins().split(","))
                 .allowedMethods(corsProperties.getAllowedMethods().split(","))
                 .allowCredentials(corsProperties.isAllowCredentials());
+
+        // Swagger 관련 엔드포인트 추가
+        registry.addMapping("/v3/api-docs/**")
+                .allowedOrigins(corsProperties.getAllowedOrigins().split(","))
+                .allowedMethods("GET");
+
+        registry.addMapping("/swagger-ui/**")
+                .allowedOrigins(corsProperties.getAllowedOrigins().split(","))
+                .allowedMethods("GET");
+
+        registry.addMapping("/swagger-ui.html")
+                .allowedOrigins(corsProperties.getAllowedOrigins().split(","))
+                .allowedMethods("GET");
     }
 }

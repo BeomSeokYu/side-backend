@@ -22,8 +22,8 @@ public class ResponseMenuDTO {
     private String iconClass;
     private String isUsed;
     private String layoutType;
-    private String createdBy;
-    private String updatedBy;
+    private Long createdBy;
+    private Long updatedBy;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private List<ResponseMenuDTO> children;
